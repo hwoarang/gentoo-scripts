@@ -37,4 +37,7 @@ fi
 umount /boot
 popd > /dev/null 2>&1
 
+# Remove old packages
+emerge -P gentoo-sources
+
 exit 0

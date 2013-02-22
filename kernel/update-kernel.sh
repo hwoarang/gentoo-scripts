@@ -30,14 +30,15 @@ if [[ "${kernel}" != "${old_kernel}" ]]; then
 	[[ -z ${old_kernel} ]] && \
 		{ echo "Failed to find old kernel version"; exit 1; }
 
+	# Remove old packages
+	emerge -P gentoo-sources
+
+	rm -r /usr/src/linux-${old_kernel}* || { echo "Failed to remove old kernel sources"; exit 1; }
 	rm -r /boot/*${old_kernel}* || { echo "Failed to remove boot files"; exit 1; }	
 	rm -r /lib/modules/${old_kernel}* || { echo "Failed to remove modules"; exit 1; }
 fi
 
 umount /boot
 popd > /dev/null 2>&1
-
-# Remove old packages
-emerge -P gentoo-sources
 
 exit 0
